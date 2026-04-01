@@ -14,8 +14,13 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # yod_navigator:
+  #   path: ../yod-navigator
+
   yod_navigator:
-    path: ../yod-navigator
+    git:
+      url: https://github.com/corp-yod/yod-navigator.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
