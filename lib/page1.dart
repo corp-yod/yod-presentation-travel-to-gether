@@ -19,7 +19,7 @@ class _Page1State extends State<Page1> {
         //   colorText: context.ramTheme.onPrimary,
         // ),
       ),
-      body: Center(child: Text('Travel To Gether')),
+      body: Center(child: Text('Travel To Gether1')),
     );
   }
 }
