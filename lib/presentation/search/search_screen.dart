@@ -3,12 +3,12 @@ import 'package:yod_presentation_travel_to_gether/presentation/common_interface/
 
 class SearchScreen extends CommonTabbarInterface {
   @override
-  Widget buildTabBar() {
+  Widget buildTabBar(BuildContext context) {
     return Tab(text: 'ค้นหา', icon: Icon(Icons.search));
   }
 
   @override
-  Widget buildTabBarView() {
+  Widget buildTabBarView(BuildContext context) {
     return Center(child: Text('Page C'));
   }
 }

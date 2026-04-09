@@ -3,26 +3,29 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/home/home_screen.dart';
 
 void main() {
+  final context =
+      TestWidgetsFlutterBinding.ensureInitialized().renderViewElement!;
+
   group('HomeScreen Unit Tests', () {
     test('HomeScreen.buildTabBar returns Tab widget', () {
       final homeScreen = HomeScreen();
-      final tabWidget = homeScreen.buildTabBar();
+      final tabWidget = homeScreen.buildTabBar(context);
       expect(tabWidget, isA<Tab>());
     });
 
     test('HomeScreen.buildTabBarView returns Padding widget', () {
       final homeScreen = HomeScreen();
-      final viewWidget = homeScreen.buildTabBarView();
+      final viewWidget = homeScreen.buildTabBarView(context);
       expect(viewWidget, isA<Padding>());
     });
 
     test('HomeScreen tab has text "บ้าน"', () {
-      final tab = HomeScreen().buildTabBar() as Tab;
+      final tab = HomeScreen().buildTabBar(context) as Tab;
       expect(tab.text, 'บ้าน');
     });
 
     test('HomeScreen tab has icon', () {
-      final tab = HomeScreen().buildTabBar() as Tab;
+      final tab = HomeScreen().buildTabBar(context) as Tab;
       expect(tab.icon, isNotNull);
     });
 
@@ -37,9 +40,7 @@ void main() {
     testWidgets('CreateTripButton renders', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CreateTripButton(onPressed: () {}),
-          ),
+          home: Scaffold(body: CreateTripButton(onPressed: () {})),
         ),
       );
       expect(find.byType(CreateTripButton), findsOneWidget);
@@ -48,9 +49,7 @@ void main() {
     testWidgets('CreateTripButton has icon', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CreateTripButton(onPressed: () {}),
-          ),
+          home: Scaffold(body: CreateTripButton(onPressed: () {})),
         ),
       );
       expect(find.byIcon(Icons.add), findsOneWidget);
@@ -59,9 +58,7 @@ void main() {
     testWidgets('CreateTripButton has text', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CreateTripButton(onPressed: () {}),
-          ),
+          home: Scaffold(body: CreateTripButton(onPressed: () {})),
         ),
       );
       expect(find.text('สร้างทริป'), findsOneWidget);
@@ -73,7 +70,9 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: CreateTripButton(
-              onPressed: () { tapped = true; },
+              onPressed: () {
+                tapped = true;
+              },
             ),
           ),
         ),
@@ -82,13 +81,12 @@ void main() {
       expect(tapped, true);
     });
 
-    testWidgets('CreateTripButton has Material styling',
-        (WidgetTester tester) async {
+    testWidgets('CreateTripButton has Material styling', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CreateTripButton(onPressed: () {}),
-          ),
+          home: Scaffold(body: CreateTripButton(onPressed: () {})),
         ),
       );
       expect(find.byType(Material), findsWidgets);
@@ -97,48 +95,48 @@ void main() {
   });
 
   group('HomeScreen View Widget Tests', () {
-    testWidgets('HomeScreen.buildTabBarView renders content',
-        (WidgetTester tester) async {
+    testWidgets('HomeScreen.buildTabBarView renders content', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: HomeScreen().buildTabBarView(),
-          ),
+          home: Scaffold(body: HomeScreen().buildTabBarView(context)),
         ),
       );
       expect(find.text('Travel Together'), findsOneWidget);
     });
 
-    testWidgets('HomeScreen view displays subtitle', (WidgetTester tester) async {
+    testWidgets('HomeScreen view displays subtitle', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: HomeScreen().buildTabBarView(),
-          ),
+          home: Scaffold(body: HomeScreen().buildTabBarView(context)),
         ),
       );
-      expect(find.text('ค้นหาเพื่อนร่วมเดินทาง สร้างประสบการณ์ใหม่ๆ ไปด้วยกัน'),
-          findsOneWidget);
+      expect(
+        find.text('ค้นหาเพื่อนร่วมเดินทาง สร้างประสบการณ์ใหม่ๆ ไปด้วยกัน'),
+        findsOneWidget,
+      );
     });
 
-    testWidgets('HomeScreen view has CreateTripButton',
-        (WidgetTester tester) async {
+    testWidgets('HomeScreen view has CreateTripButton', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: HomeScreen().buildTabBarView(),
-          ),
+          home: Scaffold(body: HomeScreen().buildTabBarView(context)),
         ),
       );
       expect(find.byType(CreateTripButton), findsOneWidget);
     });
 
-    testWidgets('HomeScreen view layout structure', (WidgetTester tester) async {
+    testWidgets('HomeScreen view layout structure', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: HomeScreen().buildTabBarView(),
-          ),
+          home: Scaffold(body: HomeScreen().buildTabBarView(context)),
         ),
       );
       expect(find.byType(Padding), findsWidgets);

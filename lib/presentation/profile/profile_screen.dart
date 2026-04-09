@@ -3,12 +3,12 @@ import 'package:yod_presentation_travel_to_gether/presentation/common_interface/
 
 class ProfileScreen extends CommonTabbarInterface {
   @override
-  Widget buildTabBar() {
+  Widget buildTabBar(BuildContext context) {
     return Tab(text: 'โปรไฟล์', icon: Icon(Icons.person));
   }
 
   @override
-  Widget buildTabBarView() {
+  Widget buildTabBarView(BuildContext context) {
     return Center(child: Text('Page A'));
   }
 }

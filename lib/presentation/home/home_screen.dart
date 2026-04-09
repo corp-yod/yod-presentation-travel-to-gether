@@ -4,12 +4,12 @@ import 'package:yod_presentation_travel_to_gether/presentation/common_interface/
 
 class HomeScreen extends CommonTabbarInterface {
   @override
-  Widget buildTabBar() {
+  Widget buildTabBar(BuildContext context) {
     return Tab(text: 'บ้าน', icon: Icon(Icons.home));
   }
 
   @override
-  Widget buildTabBarView() {
+  Widget buildTabBarView(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(kPadding7),
       child: Column(
@@ -49,6 +49,13 @@ class HomeScreen extends CommonTabbarInterface {
                   CreateTripButton(
                     onPressed: () {
                       print('Create Trip Button Pressed');
+                      // YodNavigator().pushNamed(
+                      //   context,
+                      //   RouteNameTravel.travelLoginScreen,
+                      //   arguments: {
+                      //     'from': 'HomeScreen',
+                      //   }
+                      // );
                     },
                   ),
                 ],

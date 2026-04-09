@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yod_navigator/yod_navigator.dart';
-import 'package:yod_presentation_travel_to_gether/presentation/home/home_screen.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/main_app.dart';
 import 'package:yod_presentation_travel_to_gether/route_name.dart';
 
@@ -10,7 +9,7 @@ class TravelToGetherDomain extends YodRouterGenerator {
 
   @override
   Set<String> routes() {
-    return {RouteNameTravel.travelMainApp, RouteNameTravel.travelHomeScreen};
+    return {RouteNameTravel.travelMainApp};
   }
 
   @override
@@ -18,8 +17,6 @@ class TravelToGetherDomain extends YodRouterGenerator {
     switch (settings.name) {
       case RouteNameTravel.travelMainApp:
         return _buildPageRoute(settings, const MainApp());
-      // case RouteNameTravel.travelHomeScreen:
-      //   return _buildPageRoute(settings, const HomeScreen());
     }
     return null;
   }

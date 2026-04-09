@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 abstract class CommonTabbarInterface {
-  Widget buildTabBar();
-  Widget buildTabBarView();
+  Widget buildTabBar(BuildContext context);
+  Widget buildTabBarView(BuildContext context);
 
   // void onTabTapped(int index) {
   //   print('Tapped on tab $index');

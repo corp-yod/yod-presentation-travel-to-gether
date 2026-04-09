@@ -38,6 +38,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     // return DashboardScreen();
     return SafeArea(
       top: false,
+      bottom: false,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.teal,
@@ -49,11 +50,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: controller,
-          children: tabBars.map((e) => e.buildTabBarView()).toList(),
+          children: tabBars.map((e) => e.buildTabBarView(context)).toList(),
         ),
         bottomNavigationBar: Container(
           height: 100,
-          padding: const EdgeInsets.all(kPadding6),
+          padding: const EdgeInsets.all(kPadding7),
 
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
@@ -74,7 +75,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 onTap: (value) {
                   print('Tapped on tab $value');
                 },
-                tabs: tabBars.map((e) => e.buildTabBar()).toList(),
+                tabs: tabBars.map((e) => e.buildTabBar(context)).toList(),
               ),
             ),
           ),

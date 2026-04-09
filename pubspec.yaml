@@ -14,8 +14,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # yod_navigator:
-  #   path: ../yod-navigator
+  yod:
+    git:
+      url: https://github.com/corp-yod/yod.git
+      ref: develop
 
   yod_navigator:
     git:
@@ -27,7 +29,9 @@ dependencies:
       url: https://github.com/corp-yod/yod-nak-ram-ui-kit.git
       ref: develop
 
-# dependency_overrides:
+dependency_overrides:
+  yod:
+    path: ../yod
 #   yod_nak_ram_ui_kit:
 #     path: ../yod-nak-ram-ui-kit
 
