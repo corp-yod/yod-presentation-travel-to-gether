@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yod/yod.dart';
 import 'package:yod_nak_ram_ui_kit/yod_nak_ram_ui_kit.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/common_interface/common_tabbar_interface.dart';
 
@@ -13,14 +14,12 @@ class HomeScreen extends CommonTabbarInterface {
     return Padding(
       padding: const EdgeInsets.all(kPadding7),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Text('Home Screen'),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +46,7 @@ class HomeScreen extends CommonTabbarInterface {
                   const SizedBox(width: kPadding6),
                   // RamButton(label: 'เริ่มต้น', onPressed: null),
                   CreateTripButton(
-                    onPressed: () {
+                    onPressed: () async {
                       print('Create Trip Button Pressed');
                       // YodNavigator().pushNamed(
                       //   context,
@@ -56,9 +55,68 @@ class HomeScreen extends CommonTabbarInterface {
                       //     'from': 'HomeScreen',
                       //   }
                       // );
+                      // final isLogin = isLoggedIn();
+                      // print('#->>> isTokenExpired isLogin $isLogin');
                     },
                   ),
                 ],
+              ),
+
+              CreateTripButton(
+                onPressed: () async {
+                  print('Set Data');
+                  await YodData.instance
+                      .variableStorage()
+                      .setKeyValueString('setCustomerData', 'Tinnakorn')
+                      .whenComplete(() {
+                        print('Data set successfully');
+                      })
+                      .catchError((error) {
+                        print('Error setting data: $error');
+                      });
+
+                  await YodData.instance
+                      .secureStorage()
+                      .setKeyValue('secureStorage', 'Tinnakorn')
+                      .whenComplete(() {
+                        print('SecureStorage Data set successfully');
+                      })
+                      .catchError((error) {
+                        print('Error setting SecureStorage data: $error');
+                      });
+
+                  YodData.instance.memoryStorage().setKeyValue(
+                    'memoryStorage',
+                    'Tinnakorn',
+                  );
+                },
+              ),
+              SizedBox(height: kPadding7),
+              CreateTripButton(
+                onPressed: () async {
+                  print('Get Data');
+                  await YodData()
+                      .variableStorage()
+                      .getKeyValueString('setCustomerData')
+                      .then((value) {
+                        print('Retrieved Data: $value');
+                      })
+                      .catchError((error) {
+                        print('Error retrieving data: $error');
+                      });
+
+                  await YodData.instance
+                      .secureStorage()
+                      .getKeyValue('secureStorage')
+                      .then((value) {
+                        print('Retrieved SecureStorage Data: $value');
+                      });
+
+                  final memoryStorageData = YodData.instance
+                      .memoryStorage()
+                      .getKeyValue('memoryStorage');
+                  print('Retrieved MemoryStorage Data: $memoryStorageData');
+                },
               ),
             ],
           ),

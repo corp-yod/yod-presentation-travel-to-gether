@@ -1,4 +1,5 @@
 // import 'package:yod_presentation_travel_to_gether/core/storage/token_storage.dart';
+import 'package:yod/yod.dart';
 import 'package:yod_presentation_travel_to_gether/features/auth/data/datasource/remote_datasource.dart';
 import 'package:yod_presentation_travel_to_gether/features/auth/data/models/login_request.dart';
 import 'package:yod_presentation_travel_to_gether/features/auth/domain/entities/user.dart';
@@ -15,14 +16,20 @@ class RepositoryImpl implements Repositories {
       final response = await remoteDataSource.login(
         LoginRequest(email: email, password: password),
       );
+      await YodData.instance.secureStorage().setKeyValue(
+        'accessToken',
+        response.accessToken,
+      );
 
-      // await tokenStorage.saveAccessToken(response.access_token);
-      // await tokenStorage.saveRefreshToken(response.refresh_token);
+      YodData.instance.variableStorage().setKeyValueString(
+        'userId',
+        response.userId,
+      );
 
       return User(
-        id: '1', //TODO ค่อยกลับมาดู
-        accessToken: response.access_token,
-        refreshToken: response.refresh_token,
+        id: response.userId,
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
       );
     } catch (e) {
       rethrow;
