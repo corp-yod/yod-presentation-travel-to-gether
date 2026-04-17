@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:yod_nak_ram_ui_kit/yod_nak_ram_ui_kit.dart';
+import 'package:yod_presentation_travel_to_gether/presentation/auth_guard.dart/auth_gurad.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/common_interface/common_tabbar_interface.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/home/home_screen.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/profile/profile_screen.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/search/search_screen.dart';
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class MainAppTravelToGether extends StatefulWidget {
+  const MainAppTravelToGether({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<MainAppTravelToGether> createState() => _MainAppTravelToGetherState();
 }
 
-class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
+class _MainAppTravelToGetherState extends State<MainAppTravelToGether>
+    with SingleTickerProviderStateMixin {
   late TabController controller;
 
   List<CommonTabbarInterface> tabBars = [
@@ -35,7 +37,10 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // return DashboardScreen();
+    return AuthGuard(child: _buildMainAppTravelToGether());
+  }
+
+  Widget _buildMainAppTravelToGether() {
     return SafeArea(
       top: false,
       bottom: false,

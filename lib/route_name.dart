@@ -1,3 +1,4 @@
 class RouteNameTravel {
-  static const String travelMainApp = '/travelMainApp';
+  static const String travelLoginScreen = '/travelLoginScreen';
+  static const String mainAppTravelToGether = '/mainAppTravelToGether';
 }

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:yod/yod.dart';
 import 'package:yod_navigator/presentation/yod_navigator/yod_navigator.dart';
 import 'package:yod_presentation_travel_to_gether/features/auth/data/datasource/remote_datasource.dart';
 import 'package:yod_presentation_travel_to_gether/features/auth/data/repositories/repository_impl.dart';
@@ -25,24 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // YodData.instance.secureStorage().removeKeyValue('accessToken');
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    if (initialized) return;
-    initialized = true;
-
-    isLoggedIn().then((loggedIn) {
-      if (loggedIn) {
-        YodNavigator().pushReplacementNamed(
-          context,
-          RouteNameTravel.travelMainApp,
-        );
-      }
-    });
   }
 
   @override
@@ -52,28 +36,31 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> handleLogin() async {
-    // final tokenStorage = TokenStorage();
-
-    final repository = RepositoryImpl(remoteDataSource: AuthRemoteDataSource());
-    final loginUseCase = LoginUseCase(repositories: repository);
-
-    try {
-      final user = await loginUseCase.call('test@mail.com', '123456');
-
-      print('#### User ID: ${user.id}');
-      print('#### Access Token: ${user.accessToken}');
-      print('#### Refresh Token: ${user.refreshToken}');
-
-      YodNavigator().pushNamed(context, RouteNameTravel.travelMainApp);
-    } catch (e) {
-      print('Login error: $e');
-    }
-  }
-
-  void _login() {
+  Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      handleLogin();
+      final repository = RepositoryImpl(
+        remoteDataSource: AuthRemoteDataSource(),
+      );
+      final loginUseCase = LoginUseCase(repositories: repository);
+
+      try {
+        final email = _emailController.text;
+        final password = _passwordController.text;
+
+        // final user = await loginUseCase.call(email, password);
+        final user = await loginUseCase.call('test@mail.com', '123456');
+
+        print('#### User ID: ${user.id}');
+        print('#### Access Token: ${user.accessToken}');
+        print('#### Refresh Token: ${user.refreshToken}');
+
+        YodNavigator().pushNamed(
+          context,
+          RouteNameTravel.mainAppTravelToGether,
+        );
+      } catch (e) {
+        print('Login error: $e');
+      }
     }
   }
 
@@ -94,6 +81,12 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextFormField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: [AutofillHints.email],
+                textCapitalization: TextCapitalization.none,
+
+                autocorrect: false,
+                enableSuggestions: false,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
@@ -102,7 +95,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'กรุณากรอกอีเมล';
+                  }
+                  // ตัวอย่างการเช็ค Format Email เบื้องต้นด้วย Regex
+                  if (!RegExp(
+                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                  ).hasMatch(value)) {
+                    return 'รูปแบบอีเมลไม่ถูกต้อง';
                   }
                   return null;
                 },
@@ -110,6 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                autofillHints: [AutofillHints.password],
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
@@ -126,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: _login,
+                onPressed: _handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.primaryColor,
                   foregroundColor: theme.colorScheme.onPrimary,
@@ -139,51 +140,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  Future<bool> isLoggedIn() async {
-    final accessToken = await YodData.instance.secureStorage().getKeyValue(
-      'accessToken',
-    );
-    if (accessToken == null) return false;
-
-    if (isTokenExpired(accessToken)) {
-      // return await refreshAccessToken();
-      return false;
-    }
-
-    return true;
-  }
-
-  bool isTokenExpired(String token) {
-    final parts = token.split('.');
-    if (parts.length != 3) return true;
-
-    final payload = json.decode(
-      utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
-    );
-
-    final exp = payload['exp'];
-    final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-
-    print('#->>> isTokenExpired payload $payload');
-    print('#->>> isTokenExpired exp $exp');
-    print('#->>> isTokenExpired now $now');
-
-    return now >= exp;
-  }
-
-  // Future<bool> refreshAccessToken() async {
-  //   final refreshToken = await storage.read(key: 'refreshToken');
-
-  //   if (refreshToken == null) return false;
-
-  //   final response = await callRefreshApi(refreshToken);
-
-  //   if (response.success) {
-  //     await saveTokens(response.accessToken, response.refreshToken);
-  //     return true;
-  //   }
-
-  //   return false;
-  // }
 }

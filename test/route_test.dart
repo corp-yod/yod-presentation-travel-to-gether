@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yod_presentation_travel_to_gether/route.dart';
 import 'package:yod_presentation_travel_to_gether/route_name.dart';
-import 'package:yod_presentation_travel_to_gether/presentation/main_app.dart';
+import 'package:yod_presentation_travel_to_gether/presentation/main_app_travel_together.dart';
 
 void main() {
   group('RouteNameTravel', () {
     test('travelMainApp constant should have correct value', () {
-      expect(RouteNameTravel.travelMainApp, '/travelMainApp');
+      expect(RouteNameTravel.mainAppTravelToGether, '/mainAppTravelToGether');
     });
   });
 
@@ -28,7 +28,7 @@ void main() {
       final routes = domain.routes();
 
       expect(routes, isA<Set<String>>());
-      expect(routes, contains(RouteNameTravel.travelMainApp));
+      expect(routes, contains(RouteNameTravel.mainAppTravelToGether));
       expect(routes.length, 2);
     });
 
@@ -37,13 +37,13 @@ void main() {
         'should return PageRouteBuilder for travelMainApp route with MainApp widget',
         () {
           final routeSettings = RouteSettings(
-            name: RouteNameTravel.travelMainApp,
+            name: RouteNameTravel.mainAppTravelToGether,
           );
           final route = domain.onGenerateRoute(routeSettings);
 
           expect(route, isNotNull);
           expect(route, isA<PageRouteBuilder>());
-          expect(route?.settings.name, RouteNameTravel.travelMainApp);
+          expect(route?.settings.name, RouteNameTravel.mainAppTravelToGether);
         },
       );
 
@@ -56,7 +56,7 @@ void main() {
 
       test('PageRouteBuilder animation should build MainApp widget', () {
         final routeSettings = RouteSettings(
-          name: RouteNameTravel.travelMainApp,
+          name: RouteNameTravel.mainAppTravelToGether,
         );
         final route = domain.onGenerateRoute(routeSettings) as PageRouteBuilder;
 
@@ -67,12 +67,12 @@ void main() {
           kAlwaysCompleteAnimation,
         );
 
-        expect(widget, isA<MainApp>());
+        expect(widget, isA<MainAppTravelToGether>());
       });
 
       test('PageRouteBuilder transitionsBuilder creates SlideTransition', () {
         final routeSettings = RouteSettings(
-          name: RouteNameTravel.travelMainApp,
+          name: RouteNameTravel.mainAppTravelToGether,
         );
         final route = domain.onGenerateRoute(routeSettings) as PageRouteBuilder;
 
@@ -98,7 +98,9 @@ void main() {
     });
 
     test('route slide transition starts from right (Offset 1, 0)', () {
-      final routeSettings = RouteSettings(name: RouteNameTravel.travelMainApp);
+      final routeSettings = RouteSettings(
+        name: RouteNameTravel.mainAppTravelToGether,
+      );
       final route = domain.onGenerateRoute(routeSettings) as PageRouteBuilder;
 
       final animation = AlwaysStoppedAnimation<double>(0.0);
@@ -115,7 +117,9 @@ void main() {
     });
 
     test('route slide transition ends at center (Offset 0, 0)', () {
-      final routeSettings = RouteSettings(name: RouteNameTravel.travelMainApp);
+      final routeSettings = RouteSettings(
+        name: RouteNameTravel.mainAppTravelToGether,
+      );
       final route = domain.onGenerateRoute(routeSettings) as PageRouteBuilder;
 
       final animation = AlwaysStoppedAnimation<double>(1.0);

@@ -1,118 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yod_presentation_travel_to_gether/presentation/main_app.dart';
+import 'package:yod_presentation_travel_to_gether/presentation/main_app_travel_together.dart';
 
 void main() {
-  group('MainApp Widget Tests', () {
-    testWidgets('MainApp renders without crashing',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+  group('MainAppTravelToGether Widget Tests', () {
+    testWidgets('MainAppTravelToGether renders without crashing', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
-      expect(find.byType(MainApp), findsOneWidget);
+      expect(find.byType(MainAppTravelToGether), findsOneWidget);
     });
 
-    testWidgets('MainApp contains Scaffold', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether contains Scaffold', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(Scaffold), findsOneWidget);
     });
 
-    testWidgets('MainApp has AppBar', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether has AppBar', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(AppBar), findsOneWidget);
     });
 
-    testWidgets('MainApp has TabBarView', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether has TabBarView', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(TabBarView), findsOneWidget);
     });
 
-    testWidgets('MainApp has bottom TabBar', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether has bottom TabBar', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(TabBar), findsOneWidget);
     });
 
-    testWidgets('MainApp contains Tab widgets', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether contains Tab widgets', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(Tab), findsWidgets);
     });
 
-    testWidgets('MainApp builds and pumps', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether builds and pumps', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       await tester.pumpAndSettle();
-      expect(find.byType(MainApp), findsOneWidget);
+      expect(find.byType(MainAppTravelToGether), findsOneWidget);
     });
 
-    testWidgets('MainApp has ClipRRect for styling',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether has ClipRRect for styling', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(ClipRRect), findsOneWidget);
     });
 
-    testWidgets('MainApp contains SafeArea', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether contains SafeArea', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
       expect(find.byType(SafeArea), findsWidgets);
     });
 
-    testWidgets('MainApp proper cleanup on dispose',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: MainApp(),
-        ),
-      );
+    testWidgets('MainAppTravelToGether proper cleanup on dispose', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MaterialApp(home: MainAppTravelToGether()));
 
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Placeholder(),
-        ),
-      );
+      await tester.pumpWidget(const MaterialApp(home: Placeholder()));
 
-      expect(find.byType(MainApp), findsNothing);
+      expect(find.byType(MainAppTravelToGether), findsNothing);
     });
   });
-
 }
