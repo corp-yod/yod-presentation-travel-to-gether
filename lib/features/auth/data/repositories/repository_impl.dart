@@ -21,7 +21,7 @@ class RepositoryImpl implements Repositories {
         response.accessToken,
       );
 
-      YodData.instance.variableStorage().setKeyValueString(
+      await YodData.instance.variableStorage().setKeyValueString(
         'userId',
         response.userId,
       );

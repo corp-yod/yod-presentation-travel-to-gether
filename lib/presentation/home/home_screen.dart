@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:yod/yod.dart';
 import 'package:yod_nak_ram_ui_kit/yod_nak_ram_ui_kit.dart';
+import 'package:yod_navigator/presentation/yod_navigator/yod_navigator.dart';
+import 'package:yod_presentation_travel_to_gether/presentation/common/common_tabcontroller1.dart';
 import 'package:yod_presentation_travel_to_gether/presentation/common_interface/common_tabbar_interface.dart';
+import 'package:yod_presentation_travel_to_gether/route_name.dart';
 
 class HomeScreen extends CommonTabbarInterface {
   @override
@@ -12,7 +18,7 @@ class HomeScreen extends CommonTabbarInterface {
   @override
   Widget buildTabBarView(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(kPadding7),
+      padding: const EdgeInsets.all(kPadding10),
       child: Column(
         children: [
           Column(
@@ -57,6 +63,12 @@ class HomeScreen extends CommonTabbarInterface {
                       // );
                       // final isLogin = isLoggedIn();
                       // print('#->>> isTokenExpired isLogin $isLogin');
+
+                      YodNavigator().tabAnimateTo(
+                        context,
+                        NavBarName.SEARCH,
+                        controllerApp: CONTROLLERAPP.TRAVELAPP,
+                      );
                     },
                   ),
                 ],
@@ -65,57 +77,70 @@ class HomeScreen extends CommonTabbarInterface {
               CreateTripButton(
                 onPressed: () async {
                   print('Set Data');
-                  await YodData.instance
-                      .variableStorage()
-                      .setKeyValueString('setCustomerData', 'Tinnakorn')
-                      .whenComplete(() {
-                        print('Data set successfully');
-                      })
-                      .catchError((error) {
-                        print('Error setting data: $error');
-                      });
 
-                  await YodData.instance
-                      .secureStorage()
-                      .setKeyValue('secureStorage', 'Tinnakorn')
-                      .whenComplete(() {
-                        print('SecureStorage Data set successfully');
-                      })
-                      .catchError((error) {
-                        print('Error setting SecureStorage data: $error');
-                      });
-
-                  YodData.instance.memoryStorage().setKeyValue(
-                    'memoryStorage',
-                    'Tinnakorn',
+                  print(
+                    '#->>> CommonTabcontroller1 getCurrent ${CommonTabcontroller1().getCurrent()}',
                   );
+
+                  // await YodData.instance
+                  //     .variableStorage()
+                  //     .setKeyValueString('setCustomerData', 'Tinnakorn')
+                  //     .whenComplete(() {
+                  //       print('Data set successfully');
+                  //     })
+                  //     .catchError((error) {
+                  //       print('Error setting data: $error');
+                  //     });
+
+                  // await YodData.instance
+                  //     .secureStorage()
+                  //     .setKeyValue('secureStorage', 'Tinnakorn')
+                  //     .whenComplete(() {
+                  //       print('SecureStorage Data set successfully');
+                  //     })
+                  //     .catchError((error) {
+                  //       print('Error setting SecureStorage data: $error');
+                  //     });
+
+                  // YodData.instance.memoryStorage().setKeyValue(
+                  //   'memoryStorage',
+                  //   'Tinnakorn',
+                  // );
                 },
               ),
               SizedBox(height: kPadding7),
               CreateTripButton(
                 onPressed: () async {
                   print('Get Data');
-                  await YodData()
-                      .variableStorage()
-                      .getKeyValueString('setCustomerData')
-                      .then((value) {
-                        print('Retrieved Data: $value');
-                      })
-                      .catchError((error) {
-                        print('Error retrieving data: $error');
-                      });
+                  // await YodData()
+                  //     .variableStorage()
+                  //     .getKeyValueString('setCustomerData')
+                  //     .then((value) {
+                  //       print('Retrieved Data: $value');
+                  //     })
+                  //     .catchError((error) {
+                  //       print('Error retrieving data: $error');
+                  //     });
 
-                  await YodData.instance
-                      .secureStorage()
-                      .getKeyValue('secureStorage')
-                      .then((value) {
-                        print('Retrieved SecureStorage Data: $value');
-                      });
+                  // await YodData.instance
+                  //     .secureStorage()
+                  //     .getKeyValue('secureStorage')
+                  //     .then((value) {
+                  //       print('Retrieved SecureStorage Data: $value');
+                  //     });
 
-                  final memoryStorageData = YodData.instance
-                      .memoryStorage()
-                      .getKeyValue('memoryStorage');
-                  print('Retrieved MemoryStorage Data: $memoryStorageData');
+                  // final memoryStorageData = YodData.instance
+                  //     .memoryStorage()
+                  //     .getKeyValue('memoryStorage');
+                  // print('Retrieved MemoryStorage Data: $memoryStorageData');
+
+                  final data = await loadBodyJson();
+                  // print('#->>> Loaded JSON Data: ${data}');
+                  YodNavigator().pushNamed(
+                    context,
+                    RouteNameTravel.bookingScreen,
+                    arguments: {'bodyJson': data},
+                  );
                 },
               ),
             ],
@@ -123,6 +148,13 @@ class HomeScreen extends CommonTabbarInterface {
         ],
       ),
     );
+  }
+
+  Future<Map<String, dynamic>> loadBodyJson() async {
+    final raw = await rootBundle.loadString(
+      'packages/yod_presentation_travel_to_gether/assets/jsons/body.json',
+    );
+    return jsonDecode(raw) as Map<String, dynamic>;
   }
 }
 

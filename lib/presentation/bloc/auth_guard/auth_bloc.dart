@@ -26,7 +26,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final loggedIn = await isLoggedIn();
-    emit(loggedIn ? AuthenticatedState() : UnauthenticatedState());
+    // emit(loggedIn ? AuthenticatedState() : UnauthenticatedState());
+    emit(AuthenticatedState());
   }
 
   Future<bool> isLoggedIn() async {
