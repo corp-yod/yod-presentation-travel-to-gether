@@ -24,7 +24,7 @@ class AuthGuard extends StatelessWidget {
         listener: (context, state) {
           if (state is UnauthenticatedState) {
             // Navigate to login screen
-            YodNavigator().pushReplacementNamed(
+            YodNavigator().pushReplacement(
               context,
               RouteNameTravel.travelLoginScreen,
             );
